@@ -13,8 +13,10 @@ Demonstrate how different MySQL transaction isolation levels affect data consist
 - Create a scenario using two concurrent sessions where one session reads data modified but not yet committed by another session.
 - Use the `READ UNCOMMITTED` isolation level.
 - Record the output of both sessions.
-- Explain why the anomaly observed is considered a **dirty read**.
+  ![image](https://github.com/user-attachments/assets/65b264af-50f4-4b77-9f97-fa6a110075dc)
 
+- Explain why the anomaly observed is considered a **dirty read**.
+Брудне читання виникає, коли транзакція читає дані, які були змінені іншою транзакцією, але ще не зафіксовані. Транзакція читає нефіксовані дані з іншої транзакції, що може призвести до неправильних або суперечливих результатів. В цьому випадку було зняко кошти з аккаунту з id = 1, але транзакція ще не завершилась, і в цей же час під час іншої транзакції, яка відбувається паралельно, можна побачити що гроші вже знялись, але ці змінні ще не зафіксовані в системі, і якщо винекне збій (системний збій, мережева помилка або інша проблема), і транзакція не відбудеться, то транзакція яка читає змінені але не закоміченні дані видасть невірний результат. Якщо інша транзакція прочитає змінені дані до того, як перша транзакція встигне їх зафіксувати, це може призвести до брудного читання.
 **Points: 5**
 
 ---
@@ -24,6 +26,9 @@ Demonstrate how different MySQL transaction isolation levels affect data consist
 - Create a scenario where a transaction reads the same row twice but gets different results within the same transaction.
 - Use the `READ COMMITTED` isolation level.
 - Record the session output that demonstrates this behavior.
+  ![image](https://github.com/user-attachments/assets/ee5cc518-5ce1-42af-a59a-48d2b7f95d0d)
+![image](https://github.com/user-attachments/assets/14c8581c-43ad-4edc-b3ad-69a5bac103e5)
+
 - Explain the concept of **non-repeatable read** using the observed results.
 
 **Points: 5**
